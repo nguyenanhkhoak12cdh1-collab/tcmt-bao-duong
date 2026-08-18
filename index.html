@@ -2721,6 +2721,55 @@ var TODAY = new Date(); TODAY.setHours(0,0,0,0);
 var DATA_VER = 'tcmt_v12_1781976677';
 var KS = {dm:'tcmt_dm6', kh:'tcmt_kh6', hh:'tcmt_hh6', nk:'tcmt_nk1'};
 
+// ── Đồng bộ Firebase Realtime Database (nhiều máy cùng thấy dữ liệu) ──
+var FB_URL = 'https://tcmt-bao-duong-default-rtdb.asia-southeast1.firebasedatabase.app';
+var FB_KEYS = {dm:'dm', kh:'kh', hh:'hh'};
+function fbPush(k, a){
+  if(!FB_KEYS[k]) return;
+  try{
+    fetch(FB_URL + '/' + FB_KEYS[k] + '.json', {
+      method: 'PUT',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify(a)
+    }).catch(function(e){ console.warn('[FB] push lỗi:', e); });
+  }catch(e){ console.warn('[FB] push lỗi:', e); }
+}
+function fbApply(k, val){
+  if(!val) return;
+  try{
+    if(JSON.stringify(_DCACHE[k]||null) === JSON.stringify(val)) return; // không đổi, bỏ qua
+  }catch(e){}
+  _DCACHE[k] = val;
+  lsSet(KS[k], JSON.stringify(val));
+  if(typeof _rendered!=='undefined' && _rendered){ _rendered[k]=false; _rendered.dash=false; _rendered.cb=false; _rendered.tk=false; _rendered.kt=false; }
+  var _cur=document.querySelector('.pg.on');
+  if(_cur){ var _tid=_cur.id.replace('pg-',''); try{RENDER[_tid]&&RENDER[_tid]();}catch(e){} }
+  try{ updateBadges(); }catch(e){}
+  try{ toast('🔄 Dữ liệu vừa được đồng bộ từ máy khác','i',2000); }catch(e){}
+}
+function fbListen(k){
+  if(!FB_KEYS[k]) return;
+  try{
+    var es = new EventSource(FB_URL + '/' + FB_KEYS[k] + '.json');
+    es.addEventListener('put', function(e){
+      try{
+        var data = JSON.parse(e.data);
+        if(data && data.data !== undefined && data.data !== null){ fbApply(k, data.data); }
+      }catch(err){}
+    });
+    es.onerror = function(){ /* trình duyệt tự kết nối lại */ };
+  }catch(e){ console.warn('[FB] listen lỗi:', e); }
+}
+function fbInit(){
+  ['dm','kh','hh'].forEach(function(k){
+    fetch(FB_URL + '/' + FB_KEYS[k] + '.json').then(function(r){return r.json();}).then(function(val){
+      if(val){ fbApply(k, val); } else { fbPush(k, ld(k)); }
+      fbListen(k);
+    }).catch(function(e){ console.warn('[FB] init lỗi:', e); fbListen(k); });
+  });
+}
+setTimeout(fbInit, 800);
+
 /* ── iOS / Private Browsing localStorage fallback ──────────────
    Dùng _M (in-memory) khi localStorage bị chặn hoàn toàn.
    Gọi trực tiếp localStorage API trong body để tránh đệ quy. */
@@ -2813,6 +2862,7 @@ function ld(k){
 function sv(k,a){
   _DCACHE[k]=a;
   var _ok=lsSet(KS[k], JSON.stringify(a));
+  fbPush(k,a);
   if(k==='nk') _nkDataVer++;
   /* Reset rendered flag để re-render tab liên quan */
   if(_rendered) { _rendered[k]=false; _rendered.dash=false; _rendered.cb=false; _rendered.tk=false; _rendered.kt=false; }
@@ -2831,6 +2881,7 @@ function sv(k,a){
 function svQuiet(k,a){
   _DCACHE[k]=a;
   var _ok=lsSet(KS[k], JSON.stringify(a));
+  fbPush(k,a);
   if(k==='nk') _nkDataVer++;
   if(!_ok){
     toast('❌ KHÔNG LƯU ĐƯỢC vào bộ nhớ trình duyệt (đầy hoặc bị chặn)! Bấm 💾 Lưu file NGAY để không mất dữ liệu.','e',10000);

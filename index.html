@@ -8,8 +8,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin=""><link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&amp;family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-html{font-size:13.5px;-webkit-text-size-adjust:100%}
-body{-webkit-text-size-adjust:100%;text-size-adjust:100%;overscroll-behavior:none;font-family:'Be Vietnam Pro','Inter','Segoe UI',system-ui,sans-serif;background:linear-gradient(135deg,#eef2f7 0%,#e8edf5 100%);color:#1e293b;min-height:100vh;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;text-rendering:optimizeLegibility;letter-spacing:-.1px}
+html{font-size:13.5px;-webkit-text-size-adjust:100%;overflow-x:hidden;max-width:100%}
+body{-webkit-text-size-adjust:100%;text-size-adjust:100%;overscroll-behavior:none;font-family:'Be Vietnam Pro','Inter','Segoe UI',system-ui,sans-serif;background:linear-gradient(135deg,#eef2f7 0%,#e8edf5 100%);color:#1e293b;min-height:100vh;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;text-rendering:optimizeLegibility;letter-spacing:-.1px;overflow-x:hidden;max-width:100%}
 :root{
   --nb:#0a1628;--nb2:#13243f;--nb3:#1e3a5f;
   --bl:#2563eb;--bl2:#3b82f6;--cy:#0e7490;--cy2:#06b6d4;
@@ -24,7 +24,7 @@ body{-webkit-text-size-adjust:100%;text-size-adjust:100%;overscroll-behavior:non
   --sh2:0 10px 30px rgba(15,23,42,.14),0 4px 8px rgba(15,23,42,.08);
 }
 /* SIDEBAR */
-#sb{position:fixed;left:0;top:0;bottom:0;width:224px;background:linear-gradient(165deg,#0a1628 0%,#13243f 55%,#1a3354 100%);display:flex;flex-direction:column;z-index:200;box-shadow:4px 0 20px rgba(0,0,0,.25)}
+#sb{position:fixed;left:0;top:0;bottom:0;width:224px;background:linear-gradient(165deg,#0a1628 0%,#13243f 55%,#1a3354 100%);display:flex;flex-direction:column;z-index:200;box-shadow:4px 0 20px rgba(0,0,0,.25);overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch}
 .sb-head{padding:16px 14px 12px;border-bottom:1px solid rgba(255,255,255,.08);display:flex;align-items:center;gap:11px}
 .sb-logo-wrap{width:46px;height:46px;flex-shrink:0;border-radius:11px;overflow:hidden;background:linear-gradient(135deg,var(--cy) 0%,var(--bl2) 100%);display:flex;align-items:center;justify-content:center;cursor:pointer;position:relative;box-shadow:0 3px 10px rgba(6,182,212,.35)}
 .sb-logo-wrap input[type=file]{position:absolute;top:0;left:0;right:0;bottom:0;opacity:0;cursor:pointer;width:100%;height:100%}
@@ -467,13 +467,13 @@ label{font-size:10px;font-weight:700;color:var(--g7);text-transform:uppercase;le
   #sb .nav-item{justify-content:flex-start;padding:11px 14px 11px 16px}
   #sbOverlay.show{display:block}
   .mobile-menu-btn{display:flex;align-items:center;justify-content:center}
-  #main{margin-left:0;padding:12px 12px 80px}
+  #main{margin-left:0;padding:12px 12px 80px;overflow-x:hidden;max-width:100vw}
   /* Topbar gọn */
   .topbar{margin-bottom:14px;flex-wrap:wrap;gap:8px}
   .pg-title{font-size:17px}
   .pg-sub{font-size:10.5px}
-  .tb-actions{width:100%;gap:6px}
-  .tb-actions .btn{flex:1;justify-content:center;padding:8px 6px;font-size:11px}
+  .tb-actions{width:100%;gap:6px;flex-wrap:wrap}
+  .tb-actions .btn{flex:1 1 calc(50% - 6px);min-width:0;justify-content:center;padding:9px 4px;font-size:11px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
   /* KPI 2 cột */
   .kpi-row{grid-template-columns:repeat(2,1fr)!important;gap:9px;margin-bottom:14px}
   .kpi{padding:12px 13px}
@@ -483,6 +483,7 @@ label{font-size:10px;font-weight:700;color:var(--g7);text-transform:uppercase;le
   /* Card mọi thứ 1 cột */
   .d2,.d3{grid-template-columns:1fr!important}
   .card-head{padding:11px 14px;flex-wrap:wrap;gap:8px}
+  .card-head>div{flex-wrap:wrap;gap:6px!important}
   .card-title{font-size:12px}
   /* Bảng cuộn ngang mượt, có gợi ý vuốt */
   .tbl-wrap{max-height:none;-webkit-overflow-scrolling:touch}
@@ -515,7 +516,7 @@ label{font-size:10px;font-weight:700;color:var(--g7);text-transform:uppercase;le
   .kpi-row{grid-template-columns:1fr 1fr;gap:7px}
   .kn{font-size:21px}
   .pg-title{font-size:15px}
-  .tb-actions .btn{font-size:10px;padding:7px 4px}
+  .tb-actions .btn{font-size:9.5px;padding:8px 2px;gap:3px}
 }
 
 
@@ -826,6 +827,71 @@ button:focus-visible,input:focus-visible,select:focus-visible,.nav-item:focus-vi
 .btn-pr{box-shadow:0 2px 6px rgba(26,95,180,.32),inset 0 1px 0 rgba(255,255,255,.18)}
 .btn-dn{box-shadow:0 2px 6px rgba(190,18,60,.30),inset 0 1px 0 rgba(255,255,255,.16)}
 
+/* ═══════════════════════════════════════════════════════════
+   NÚT BẤM CAO CẤP — VIỀN LED CHẠY QUANH, SÁNG LÊN KHI BẤM
+   Dùng chung công nghệ conic-gradient + --ledang với menu/badge
+   ═══════════════════════════════════════════════════════════ */
+.btn{position:relative;isolation:isolate;border-radius:9px;font-weight:700;transition:transform .12s,box-shadow .2s,filter .2s}
+.btn::before{
+  content:'';position:absolute;inset:-2px;border-radius:11px;
+  padding:1.5px;pointer-events:none;z-index:-1;opacity:0;
+  -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
+  -webkit-mask-composite:xor;
+          mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
+          mask-composite:exclude;
+  transition:opacity .25s ease;
+}
+.btn-pr::before,.btn-su::before{opacity:.9}
+.btn-pr::before{
+  background:conic-gradient(from var(--ledang),transparent 0deg,transparent 246deg,
+    rgba(37,99,235,.22) 266deg,#1e40af 284deg,#dbeafe 300deg,#60a5fa 310deg,#dbeafe 320deg,#1e40af 336deg,
+    rgba(37,99,235,.22) 354deg,transparent 360deg);
+  filter:drop-shadow(0 0 4px rgba(59,130,246,.8));
+  animation:ledRun 2.6s linear infinite;
+}
+.btn-su::before{
+  background:conic-gradient(from var(--ledang),transparent 0deg,transparent 246deg,
+    rgba(16,185,129,.22) 266deg,#047857 284deg,#d1fae5 300deg,#34d399 310deg,#d1fae5 320deg,#047857 336deg,
+    rgba(16,185,129,.22) 354deg,transparent 360deg);
+  filter:drop-shadow(0 0 4px rgba(16,185,129,.8));
+  animation:ledRun 2.6s linear infinite;
+}
+.btn-dn::before{
+  background:conic-gradient(from var(--ledang),transparent 0deg,transparent 246deg,
+    rgba(225,29,72,.24) 266deg,#9f1239 284deg,#ffe4e6 300deg,#fb7185 310deg,#ffe4e6 320deg,#9f1239 336deg,
+    rgba(225,29,72,.24) 354deg,transparent 360deg);
+  filter:drop-shadow(0 0 4px rgba(244,63,94,.8));
+  animation:ledRun 2.2s linear infinite;
+}
+.btn-out::before{
+  background:conic-gradient(from var(--ledang),transparent 0deg,transparent 246deg,
+    rgba(8,145,178,.20) 266deg,#0e7490 284deg,#cffafe 300deg,#22d3ee 310deg,#cffafe 320deg,#0e7490 336deg,
+    rgba(8,145,178,.20) 354deg,transparent 360deg);
+  filter:drop-shadow(0 0 4px rgba(6,182,212,.7));
+  animation:ledRun 3.2s linear infinite;
+}
+/* Nút phụ (outline): LED chỉ sáng lên khi rê chuột/focus — tránh rối mắt lúc đứng yên */
+.btn-out::before{opacity:0}
+.btn-out:hover::before,.btn-out:focus-visible::before{opacity:1}
+.btn>*{position:relative;z-index:1}
+/* Rê chuột: nổi khối nhẹ + LED sáng rõ hơn */
+.btn-pr:hover,.btn-su:hover,.btn-dn:hover{transform:translateY(-1.5px)}
+.btn-pr:hover::before,.btn-su:hover::before,.btn-dn:hover::before{filter:drop-shadow(0 0 7px currentColor);opacity:1}
+/* Bấm xuống: lóe sáng nhanh như đèn LED nháy, phản hồi tức thì */
+.btn{overflow:visible}
+.btn::after{
+  content:'';position:absolute;inset:0;border-radius:inherit;pointer-events:none;z-index:2;
+  background:rgba(255,255,255,.55);opacity:0;
+}
+.btn:active::after{animation:btnLedFlash .38s ease-out}
+@keyframes btnLedFlash{0%{opacity:.85}100%{opacity:0}}
+.btn:active{box-shadow:0 1px 3px rgba(15,23,42,.2) !important}
+/* Không giảm hiệu ứng khi người dùng bật "giảm chuyển động": tắt vòng LED xoay, giữ trạng thái tĩnh dễ nhìn */
+@media (prefers-reduced-motion: reduce){
+  .btn::before{animation:none !important}
+  .btn:active::after{animation:none !important}
+}
+
 /* Menu bên trái: mục đang chọn có vệt sáng */
 /* ═══════════════════════════════════════════════════════════
    MỤC MENU ĐANG CHỌN — ÁNH VÀNG LED + LED XANH CHẠY QUANH CHỮ
@@ -1002,7 +1068,11 @@ a:focus-visible,button:focus-visible,.nav-item:focus-visible,input:focus-visible
 #userBar button:active{transform:translateY(0)}
 #userBar .ub-logout{background:rgba(239,68,68,.16);color:#fecaca}
 #userBar .ub-logout:hover{background:rgba(239,68,68,.32);color:#fff}
-@media (max-width:520px){#userBar #ubName{max-width:88px}#userBar .ub-role{display:none}}
+#userBar{overflow:hidden}
+#userBar .ub-right{gap:6px}
+#userBar button{padding:6px 10px}
+@media (max-width:520px){#userBar{padding:0 10px}#userBar #ubName{max-width:80px}#userBar .ub-role{display:none}#userBar button{padding:6px 8px;font-size:11px}}
+@media (max-width:400px){#userBar .ub-txt{display:none}#userBar #ubName{max-width:60px}#userBar .ub-avatar{width:22px;height:22px;font-size:10px}#userBar button{padding:6px}}
 
 /* Đẩy sidebar và nội dung chính xuống dưới dải trạng thái này khi đã đăng nhập */
 body.has-userbar #sb{top:44px}
@@ -1089,8 +1159,8 @@ body.role-custom [onclick^="saveModal("]{
     <span class="ub-role" id="ubRole"></span>
   </div>
   <div class="ub-right">
-    <button id="ubUsersBtn" type="button">👥 Tài khoản</button>
-    <button id="ubLogoutBtn" class="ub-logout" type="button">⏻ Đăng xuất</button>
+    <button id="ubUsersBtn" type="button">👥<span class="ub-txt"> Tài khoản</span></button>
+    <button id="ubLogoutBtn" class="ub-logout" type="button">⏻<span class="ub-txt"> Đăng xuất</span></button>
   </div>
 </div>
 
@@ -1213,6 +1283,8 @@ function sha256hex(str){
   }
   return H.map(function(x){ return ('00000000'+x.toString(16)).slice(-8); }).join('');
 }
+// Cho phép các module khác (VD: khoá riêng tư của khu vực Gemini AI) dùng chung hàm băm này
+window.sha256hex = sha256hex;
 function randSalt(){
   var s='';
   for(var i=0;i<16;i++) s += Math.floor(Math.random()*16).toString(16);
@@ -3129,19 +3201,36 @@ render();
   <div id="pg-ai" class="pg">
     <div class="card" id="aiKeyCard">
       <div class="card-head"><div class="card-title"><span class="ct-dot" style="background:#7c3aed"></span>🔑 Kết nối Gemini AI</div></div>
-      <div style="padding:16px 18px">
-        <div style="font-size:11.5px;color:var(--g5);margin-bottom:10px;line-height:1.6">
-          Nhập <b>API Key Gemini</b> để bật trợ lý AI hỏi đáp kỹ thuật. Key chỉ lưu <b>trên trình duyệt này</b> (localStorage) — không gửi lên GitHub hay bất kỳ máy chủ nào khác ngoài Google.
-          Chưa có key? Lấy miễn phí tại <a href="https://aistudio.google.com/apikey" target="_blank" rel="noopener">aistudio.google.com/apikey</a>. Dùng nhiều có thể phát sinh phí theo bảng giá của Google — anh nên theo dõi mục Billing trên Google AI Studio.
+
+      <!-- KHOÁ RIÊNG TƯ: chỉ chủ tài khoản nhập đúng mật khẩu mới xem/sửa được API Key -->
+      <div id="aiKeyLock" style="padding:26px 18px;text-align:center">
+        <div style="font-size:36px;margin-bottom:6px">🔒</div>
+        <div style="font-size:13.5px;font-weight:800;color:var(--nb);margin-bottom:4px">Khu vực riêng tư</div>
+        <div style="font-size:11.5px;color:var(--g5);margin-bottom:14px">Nhập mật khẩu để xem và chỉnh API Key Gemini</div>
+        <div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap;max-width:360px;margin:0 auto">
+          <input type="password" id="aiLockPass" placeholder="Nhập mật khẩu..." style="flex:1;min-width:170px;padding:9px 12px;border:1.5px solid var(--g2);border-radius:8px;font-size:12px;font-family:inherit" onkeydown="if(event.key==='Enter'){aiUnlockKeyCard();}">
+          <button class="btn btn-out no-print" type="button" onclick="aiToggleLockVis()" id="aiLockEyeBtn">👁</button>
+          <button class="btn btn-pr btn-sm no-print" type="button" onclick="aiUnlockKeyCard()">🔓 Mở khoá</button>
         </div>
-        <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center">
-          <input type="password" id="aiApiKey" placeholder="Dán API Key Gemini vào đây..." style="flex:1;min-width:220px;padding:9px 12px;border:1.5px solid var(--g2);border-radius:8px;font-size:12px;font-family:inherit">
-          <button class="btn btn-out btn-sm no-print" type="button" onclick="aiToggleKeyVis()" id="aiKeyEyeBtn">👁</button>
-          <input type="text" id="aiModel" placeholder="Model (vd: gemini-2.5-flash)" value="gemini-2.5-flash" style="width:190px;padding:9px 12px;border:1.5px solid var(--g2);border-radius:8px;font-size:12px;font-family:inherit">
-          <button class="btn btn-pr btn-sm no-print" type="button" onclick="aiSaveKey()">💾 Lưu &amp; Kết nối</button>
-          <button class="btn btn-out btn-sm no-print" type="button" onclick="aiClearKey()" style="color:var(--rd);border-color:var(--rd)">🗑 Xoá key</button>
+        <div id="aiLockErr" style="margin-top:9px;font-size:11px;font-weight:700;color:var(--rd);min-height:14px"></div>
+      </div>
+
+      <div id="aiKeyContent" style="display:none">
+        <div style="padding:16px 18px">
+          <div style="font-size:11.5px;color:var(--g5);margin-bottom:10px;line-height:1.6">
+            Nhập <b>API Key Gemini</b> để bật trợ lý AI hỏi đáp kỹ thuật. Key chỉ lưu <b>trên trình duyệt này</b> (localStorage) — không gửi lên GitHub hay bất kỳ máy chủ nào khác ngoài Google.
+            Chưa có key? Lấy miễn phí tại <a href="https://aistudio.google.com/apikey" target="_blank" rel="noopener">aistudio.google.com/apikey</a>. Dùng nhiều có thể phát sinh phí theo bảng giá của Google — anh nên theo dõi mục Billing trên Google AI Studio.
+          </div>
+          <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center">
+            <input type="password" id="aiApiKey" placeholder="Dán API Key Gemini vào đây..." style="flex:1;min-width:220px;padding:9px 12px;border:1.5px solid var(--g2);border-radius:8px;font-size:12px;font-family:inherit">
+            <button class="btn btn-out btn-sm no-print" type="button" onclick="aiToggleKeyVis()" id="aiKeyEyeBtn">👁</button>
+            <input type="text" id="aiModel" placeholder="Model (vd: gemini-2.5-flash)" value="gemini-2.5-flash" style="width:190px;padding:9px 12px;border:1.5px solid var(--g2);border-radius:8px;font-size:12px;font-family:inherit">
+            <button class="btn btn-pr btn-sm no-print" type="button" onclick="aiSaveKey()">💾 Lưu &amp; Kết nối</button>
+            <button class="btn btn-out btn-sm no-print" type="button" onclick="aiClearKey()" style="color:var(--rd);border-color:var(--rd)">🗑 Xoá key</button>
+            <button class="btn btn-out btn-sm no-print" type="button" onclick="aiLockKeyCard()" title="Khoá lại khu vực này">🔒 Khoá lại</button>
+          </div>
+          <div id="aiKeyStatus" style="margin-top:9px;font-size:11.5px;font-weight:700"></div>
         </div>
-        <div id="aiKeyStatus" style="margin-top:9px;font-size:11.5px;font-weight:700"></div>
       </div>
     </div>
 
@@ -4989,6 +5078,60 @@ function confirmPrint(){
 }
 
 // ═══════════════════════════════════════════════════════════
+// KHOÁ RIÊNG TƯ CHO KHU VỰC "KẾT NỐI GEMINI AI"
+// Dùng lại sha256hex() thuần JS đã có sẵn (không phụ thuộc crypto.subtle)
+// để so khớp mật khẩu — không lưu mật khẩu dạng chữ rõ trong mã nguồn.
+// Lưu ý: đây là khoá phía trình duyệt (không có máy chủ riêng), chỉ nhằm
+// ngăn người khác vô tình mở/sửa API Key khi dùng chung máy, không phải
+// mã hoá tuyệt đối chống người rành kỹ thuật đọc mã nguồn.
+// ═══════════════════════════════════════════════════════════
+var AI_LOCK_HASH = 'ef068f2dbdca07f831d39f612a3f8cd6a5fd4acc0021a44c7f99a9f64c8647c8';
+var SS_AI_UNLOCK = 'tcmt_ai_unlocked_v1';
+function aiShowContent(){
+  var lock = document.getElementById('aiKeyLock');
+  var content = document.getElementById('aiKeyContent');
+  if(lock) lock.style.display = 'none';
+  if(content) content.style.display = 'block';
+}
+function aiUnlockKeyCard(){
+  var inp = document.getElementById('aiLockPass');
+  var errEl = document.getElementById('aiLockErr');
+  var pass = (inp && inp.value || '').trim();
+  if(!pass){ if(errEl) errEl.textContent = 'Vui lòng nhập mật khẩu.'; return; }
+  var h = sha256hex(pass);
+  if(h === AI_LOCK_HASH){
+    try{ sessionStorage.setItem(SS_AI_UNLOCK, '1'); }catch(e){}
+    if(errEl) errEl.textContent = '';
+    if(inp) inp.value = '';
+    aiShowContent();
+  } else {
+    if(errEl) errEl.textContent = '❌ Sai mật khẩu.';
+    if(inp){ inp.value=''; inp.focus(); }
+  }
+}
+function aiLockKeyCard(){
+  try{ sessionStorage.removeItem(SS_AI_UNLOCK); }catch(e){}
+  var lock = document.getElementById('aiKeyLock');
+  var content = document.getElementById('aiKeyContent');
+  if(content) content.style.display = 'none';
+  if(lock) lock.style.display = 'block';
+  var pw = document.getElementById('aiApiKey'); if(pw) pw.type = 'password';
+  var eye = document.getElementById('aiKeyEyeBtn'); if(eye) eye.textContent = '👁';
+}
+function aiToggleLockVis(){
+  var inp = document.getElementById('aiLockPass');
+  var btn = document.getElementById('aiLockEyeBtn');
+  if(!inp) return;
+  if(inp.type === 'password'){ inp.type = 'text'; if(btn) btn.textContent = '🙈'; }
+  else { inp.type = 'password'; if(btn) btn.textContent = '👁'; }
+}
+function aiInitLock(){
+  try{
+    if(sessionStorage.getItem(SS_AI_UNLOCK) === '1'){ aiShowContent(); }
+  }catch(e){ aiShowContent(); }
+}
+
+// ═══════════════════════════════════════════════════════════
 // TRỢ LÝ AI KỸ THUẬT (Gemini API)
 // ═══════════════════════════════════════════════════════════
 var AI_KEY_LS='tcmt_gemini_key', AI_MODEL_LS='tcmt_gemini_model', AI_HIST_LS='tcmt_ai_chat_hist';
@@ -5104,6 +5247,7 @@ function aiSend(){
 }
 (function(){
   document.addEventListener('DOMContentLoaded', function(){
+    aiInitLock();
     var k=el('aiApiKey'); if(k) k.value = lsGet(AI_KEY_LS)||'';
     var m=el('aiModel'); if(m) m.value = lsGet(AI_MODEL_LS)||'gemini-2.5-flash';
     aiKeyStatusUI();
